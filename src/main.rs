@@ -2,18 +2,6 @@ use std::env;
 use std::fs;
 use std::io;
 
-fn increment_arr(i: &mut usize, x: &mut [u8]) {
-    x[*i] += 1;
-}
-
-fn decrement_arr(i: &mut usize, x: &mut [u8]) {
-    x[*i] -= 1;
-}
-
-fn insert_into_arr(i: &mut usize, x: &mut [u8], s: String) {
-    x[*i] = s.chars().next().unwrap() as u8;
-}
-
 fn main() {
     const MAX_SIZE: usize = 65535;
     let mut arr: [u8; MAX_SIZE] = [0; 65535];
@@ -57,10 +45,10 @@ fn main() {
                 pointer -= 1;
             }
             '+' => {
-                increment_arr(&mut pointer, &mut arr);
+                arr[pointer] += 1;
             }
             '-' => {
-                decrement_arr(&mut pointer, &mut arr);
+                arr[pointer] -= 1;
             }
             '.' => {
                 print!("{}", arr[pointer] as char)
@@ -73,7 +61,7 @@ fn main() {
                         .read_line(&mut input)
                         .expect("Failed to read line");
                 }
-                insert_into_arr(&mut pointer, &mut arr, input);
+                arr[pointer] = input.chars().next().unwrap() as u8;
             }
             '[' => {
                 if arr[pointer] == 0 {
